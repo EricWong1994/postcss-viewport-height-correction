@@ -12,9 +12,9 @@ module.exports =
       let replaceBy = `calc(var(--${ variable }, 1vh) * $1)`;
 
       return function (root) {
-      /* Rules are the CSS Block */
+        /* Rules are the CSS Block */
         root.walkRules(rule => {
-        /* Decls are the properties inside */
+          /* Decls are the properties inside */
           rule.walkDecls(decl => {
             let value = decl.value;
             let isImportant = decl.important;
@@ -23,7 +23,9 @@ module.exports =
             let isMatch = value.match(finderRegex) !== null;
             let isPreParsed = value.match(excludeRegex) !== null;
             if (isMatch && !isPreParsed) {
+              console.log('value: ', value);
               let correctedViewport = value.replace(finderRegex, replaceBy);
+              console.log('correctedViewport: ', correctedViewport);
 
               if (isImportant) {
                 correctedViewport += decl.raws.important || ' !important';
